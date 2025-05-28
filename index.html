@@ -48,23 +48,24 @@
   <!-- Particles.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
-    /* Orqa fon dizayni */
+    /* Orqa fon dizayni (ko'proq rang va harakat) */
     body {
-      background: linear-gradient(135deg, #6b21a8, #9333ea, #c026d3);
-      background-size: 200% 200%;
-      animation: subtleGradient 20s ease infinite;
+      background: linear-gradient(135deg, #4c1d95, #7c3aed, #c026d3, #db2777, #6d28d9);
+      background-size: 500% 500%;
+      animation: vibrantGradient 25s ease infinite;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
       overflow-y: auto;
       min-height: 100vh;
+      position: relative;
     }
-    @keyframes subtleGradient {
+    @keyframes vibrantGradient {
       0% { background-position: 0% 0%; }
       50% { background-position: 100% 100%; }
       100% { background-position: 0% 0%; }
     }
-    /* Particles sozlamalari (qimirlab turuvchi effekt) */
+    /* Particles konteyneri */
     #particles-js {
       position: absolute;
       width: 100%;
@@ -72,6 +73,23 @@
       top: 0;
       left: 0;
       z-index: -1;
+    }
+    /* Yorug'lik effekti (glow) */
+    .glow-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1), transparent 70%);
+      opacity: 0.6;
+      animation: glowPulse 10s ease-in-out infinite;
+      z-index: -1;
+    }
+    @keyframes glowPulse {
+      0% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 0.8; transform: scale(1.1); }
+      100% { opacity: 0.4; transform: scale(0.9); }
     }
     /* Shisha effekti kartalar */
     .social-card {
@@ -158,6 +176,8 @@
   </style>
 </head>
 <body class="flex items-center justify-center text-white relative">
+  <!-- Yorug'lik effekti qatlami -->
+  <div class="glow-layer"></div>
   <!-- Particles fon -->
   <div id="particles-js"></div>
   <div class="container mx-auto px-4 py-8 text-center relative z-10">
@@ -181,21 +201,24 @@
     </div>
   </div>
   <script>
-    // Particles.js sozlamalari (qimirlab turuvchi effekt)
+    // Particles.js sozlamalari (yanada dinamik effektlar)
     particlesJS('particles-js', {
       particles: {
-        number: { value: window.innerWidth < 640 ? 40 : 80, density: { enable: true, value_area: 800 } },
-        color: { value: ['#ffffff', '#d4d4d8', '#a855f7'] }, // Ko'p rangli zarralar
-        shape: { type: ['circle', 'triangle', 'star'], stroke: { width: 0 } },
-        opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1 } },
-        size: { value: 3, random: true, anim: { enable: true, speed: 3, size_min: 1 } },
-        line_linked: { enable: false },
-        move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce' }
+        number: { value: window.innerWidth < 640 ? 50 : 100, density: { enable: true, value_area: 800 } },
+        color: { value: ['#ffffff', '#d4d4d8', '#a855f7', '#f472b6'] }, // Ko'proq ranglar
+        shape: { type: ['circle', 'triangle', 'star', 'polygon'], stroke: { width: 0 } },
+        opacity: { value: 0.6, random: true, anim: { enable: true, speed: 2, opacity_min: 0.2 } },
+        size: { value: 4, random: true, anim: { enable: true, speed: 5, size_min: 1 } },
+        line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.2, width: 1 },
+        move: { enable: true, speed: 3, direction: 'none', random: true, straight: false, out_mode: 'bounce' }
       },
       interactivity: {
         detect_on: 'canvas',
-        events: { onhover: { enable: window.innerWidth >= 640, mode: 'bubble' }, onclick: { enable: true, mode: 'push' } },
-        modes: { bubble: { distance: 150, size: 5, duration: 2, opacity: 0.8 }, push: { particles_nb: 3 } }
+        events: { onhover: { enable: true, mode: 'bubble' }, onclick: { enable: true, mode: 'push' }, ontouch: { enable: true, mode: 'bubble' } },
+        modes: { 
+          bubble: { distance: 200, size: 6, duration: 2, opacity: 0.8 },
+          push: { particles_nb: 4 }
+        }
       },
       retina_detect: true
     });
